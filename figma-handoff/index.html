@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo Lab</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<div class="background-orb background-orb-left"></div>
+<div class="background-orb background-orb-right"></div>
+
+<main class="page-shell">
+    <section id="notice" class="notice hidden"></section>
+
+    <section id="authView" class="auth-shell">
+        <article class="auth-showcase surface-card">
+            <div class="brand-mark">
+                <div class="brand-mark-icon">TL</div>
+                <div>
+                    <p class="section-tag">Task Manager / Todo App</p>
+                    <h1>Todo Lab</h1>
+                </div>
+            </div>
+
+            <p class="auth-lead">
+                Современный интерфейс для системы управления проектами и задачами в формате аккуратного SaaS-продукта.
+            </p>
+
+            <div class="showcase-badges">
+                <span>Spring Boot</span>
+                <span>PostgreSQL</span>
+                <span>Liquibase</span>
+                <span>Dark UI</span>
+            </div>
+
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <strong>Проекты и задачи</strong>
+                    <p>Проекты, списки задач, статусы, приоритеты, сроки и назначение исполнителей.</p>
+                </div>
+                <div class="feature-card">
+                    <strong>Совместная работа</strong>
+                    <p>Теги, комментарии, напоминания и роли доступа для полноценной рабочей логики системы.</p>
+                </div>
+                <div class="feature-card">
+                    <strong>Надёжный backend</strong>
+                    <p>Spring Security, PostgreSQL, Liquibase и тесты уже подключены в проекте.</p>
+                </div>
+                <div class="feature-card">
+                    <strong>Готовый интерфейс</strong>
+                    <p>Интерфейс оформлен как аккуратный сервис уровня Jira / Linear / Notion.</p>
+                </div>
+            </div>
+
+            <div class="demo-card">
+                <p class="section-tag">Быстрый вход</p>
+                <div class="demo-account">
+                    <div>
+                        <strong>Администратор</strong>
+                        <span>admin@example.com / admin123</span>
+                    </div>
+                    <button type="button" class="ghost-button quick-login" data-email="admin@example.com" data-password="admin123">Заполнить</button>
+                </div>
+                <div class="demo-account">
+                    <div>
+                        <strong>Пользователь</strong>
+                        <span>demo@example.com / user123</span>
+                    </div>
+                    <button type="button" class="ghost-button quick-login" data-email="demo@example.com" data-password="user123">Заполнить</button>
+                </div>
+            </div>
+
+            <div class="auth-links">
+                <a href="/actuator/health" target="_blank" rel="noreferrer">Состояние сервиса</a>
+                <a href="/actuator/info" target="_blank" rel="noreferrer">Информация о приложении</a>
+            </div>
+        </article>
+
+        <div class="auth-forms">
+            <article class="surface-card auth-card">
+                <div class="card-header">
+                    <p class="section-tag">Авторизация</p>
+                    <h2>Вход в систему</h2>
+                </div>
+                <form id="loginForm" class="form-grid">
+                    <label>
+                        <span>Email</span>
+                        <input id="loginEmail" type="email" placeholder="demo@example.com" required>
+                    </label>
+                    <label>
+                        <span>Пароль</span>
+                        <input id="loginPassword" type="password" placeholder="user123" required>
+                    </label>
+                    <button type="submit" class="primary-button">Войти</button>
+                </form>
+            </article>
+
+            <article class="surface-card auth-card">
+                <div class="card-header">
+                    <p class="section-tag">Регистрация</p>
+                    <h2>Создание пользователя</h2>
+                </div>
+                <form id="registerForm" class="form-grid">
+                    <label>
+                        <span>Имя пользователя</span>
+                        <input id="registerDisplayName" type="text" maxlength="120" placeholder="Пользователь" required>
+                    </label>
+                    <label>
+                        <span>Email</span>
+                        <input id="registerEmail" type="email" placeholder="student@example.com" required>
+                    </label>
+                    <label>
+                        <span>Пароль</span>
+                        <input id="registerPassword" type="password" minlength="6" maxlength="100" placeholder="secret123" required>
+                    </label>
+                    <button type="submit" class="secondary-button">Зарегистрироваться</button>
+                </form>
+            </article>
+        </div>
+    </section>
+
+    <section id="appView" class="app-shell hidden">
+        <aside class="sidebar surface-card">
+            <div class="sidebar-top">
+                <div class="brand-mark compact">
+                    <div class="brand-mark-icon">TL</div>
+                    <div>
+                        <p class="section-tag">Task Manager</p>
+                        <h2>Todo Lab</h2>
+                    </div>
+                </div>
+
+                <nav class="sidebar-nav">
+                    <a href="#projectsSection" class="nav-link active">
+                        <span class="nav-icon">
+                            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5A1.5 1.5 0 0 1 5.5 4h4A1.5 1.5 0 0 1 11 5.5V8H4V5.5zm0 5h7v9.5A1.5 1.5 0 0 1 9.5 21h-4A1.5 1.5 0 0 1 4 19.5v-9zm9-5A1.5 1.5 0 0 1 14.5 4h4A1.5 1.5 0 0 1 20 5.5v4A1.5 1.5 0 0 1 18.5 11h-4A1.5 1.5 0 0 1 13 9.5v-4zm0 8A1.5 1.5 0 0 1 14.5 12h4A1.5 1.5 0 0 1 20 13.5v6A1.5 1.5 0 0 1 18.5 21h-4a1.5 1.5 0 0 1-1.5-1.5v-6z"/></svg>
+                        </span>
+                        <span>Проекты</span>
+                    </a>
+                    <a href="#tasksSection" class="nav-link">
+                        <span class="nav-icon">
+                            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 5a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm14 1H9V4h12v2zM7 12a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm14 1H9v-2h12v2zM7 19a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm14 1H9v-2h12v2z"/></svg>
+                        </span>
+                        <span>Задачи</span>
+                    </a>
+                    <a href="#filtersSection" class="nav-link">
+                        <span class="nav-icon">
+                            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v2l-6 6v6l-4-2v-4L4 7V5z"/></svg>
+                        </span>
+                        <span>Фильтры</span>
+                    </a>
+                    <a id="navUsersItem" href="#usersSection" class="nav-link hidden">
+                        <span class="nav-icon">
+                            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12a4 4 0 1 0-4-4 4 4 0 0 0 4 4zm-7 8a7 7 0 0 1 14 0H5zm13-7a3 3 0 1 0-3-3 3 3 0 0 0 3 3zm-1.15 2.05A6.95 6.95 0 0 1 21 20h-2.5a8.91 8.91 0 0 0-1.65-4.95zM6 13a3 3 0 1 0-3-3 3 3 0 0 0 3 3zm-1.35 2.05A8.91 8.91 0 0 0 3 20h2.5a6.95 6.95 0 0 1 1.35-4.95z"/></svg>
+                        </span>
+                        <span>Пользователи</span>
+                    </a>
+                </nav>
+            </div>
+
+            <section class="sidebar-block">
+                <div class="card-header compact">
+                    <p class="section-tag">Проекты</p>
+                    <h3>Быстрый выбор</h3>
+                </div>
+                <div id="projectList" class="stack-list sidebar-list"></div>
+            </section>
+
+            <section id="filtersSection" class="sidebar-block">
+                <div class="card-header compact">
+                    <p class="section-tag">Фильтры</p>
+                    <h3>Поиск по задачам</h3>
+                </div>
+                <form id="taskFilterForm" class="form-grid compact-grid">
+                    <label>
+                        <span>Проект</span>
+                        <select id="filterProjectId"></select>
+                    </label>
+                    <label>
+                        <span>Список задач</span>
+                        <select id="filterTaskListId"></select>
+                    </label>
+                    <label>
+                        <span>Статус</span>
+                        <select id="filterStatus">
+                            <option value="">Любой</option>
+                            <option value="TODO">К выполнению</option>
+                            <option value="IN_PROGRESS">В работе</option>
+                            <option value="DONE">Завершено</option>
+                        </select>
+                    </label>
+                    <label>
+                        <span>Приоритет</span>
+                        <select id="filterPriority">
+                            <option value="">Любой</option>
+                            <option value="LOW">Низкий</option>
+                            <option value="MEDIUM">Средний</option>
+                            <option value="HIGH">Высокий</option>
+                        </select>
+                    </label>
+                    <div class="split-fields">
+                        <label>
+                            <span>Срок от</span>
+                            <input id="filterDueDateFrom" type="date">
+                        </label>
+                        <label>
+                            <span>Срок до</span>
+                            <input id="filterDueDateTo" type="date">
+                        </label>
+                    </div>
+                    <div class="button-row">
+                        <button type="submit" class="ghost-button">Применить</button>
+                        <button id="clearFiltersButton" type="button" class="ghost-button">Сбросить</button>
+                    </div>
+                </form>
+            </section>
+        </aside>
+
+        <div class="workspace">
+            <header class="topbar surface-card">
+                <div class="topbar-left">
+                    <div class="user-badge">
+                        <div class="user-avatar">TL</div>
+                        <div>
+                            <h2 id="welcomeText">Добро пожаловать</h2>
+                            <p id="roleText" class="muted-text">Роли</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="topbar-actions">
+                    <button id="refreshButton" type="button" class="ghost-button">Обновить</button>
+                    <button id="logoutButton" type="button" class="danger-button">Выйти</button>
+                </div>
+            </header>
+
+            <div id="statsRow" class="stats-row"></div>
+            <section class="context-strip surface-card">
+                <div class="context-header">
+                    <div>
+                        <p class="section-tag">Текущий контекст</p>
+                        <h2>Пошаговая работа с системой</h2>
+                    </div>
+                    <p id="contextHint" class="context-hint">Сначала выберите или создайте проект.</p>
+                </div>
+                <div id="contextCards" class="context-cards"></div>
+            </section>
+
+            <div class="workspace-grid">
+                <div class="workspace-main">
+                    <section id="projectsSection" class="surface-card section-card">
+                        <div class="section-head">
+                            <div>
+                                <p class="section-tag">Управление структурой</p>
+                                <h2>Проекты, списки и теги</h2>
+                            </div>
+                        </div>
+
+                        <div class="mode-switch" role="tablist" aria-label="Режимы управления">
+                            <button type="button" class="mode-chip active" data-mode="project">1. Проект</button>
+                            <button type="button" class="mode-chip" data-mode="task-list">2. Списки</button>
+                            <button type="button" class="mode-chip" data-mode="tag">3. Теги</button>
+                        </div>
+
+                        <div class="mode-panels">
+                            <form id="projectForm" class="form-card mode-panel mode-panel-active" data-mode-panel="project">
+                                <input id="projectId" type="hidden">
+                                <div class="card-header compact">
+                                    <p class="section-tag">Проект</p>
+                                    <h3>Создание и редактирование</h3>
+                                </div>
+                                <p class="panel-help">Создайте проект, чтобы внутри него хранить списки задач и рабочие задачи.</p>
+                                <div class="form-grid">
+                                    <label>
+                                        <span>Название проекта</span>
+                                        <input id="projectName" type="text" maxlength="150" required>
+                                    </label>
+                                    <label>
+                                        <span>Описание</span>
+                                        <textarea id="projectDescription" rows="4" maxlength="1000"></textarea>
+                                    </label>
+                                </div>
+                                <div class="button-row">
+                                    <button type="submit" class="primary-button">Сохранить</button>
+                                    <button id="resetProjectButton" type="button" class="ghost-button">Очистить</button>
+                                </div>
+                            </form>
+
+                            <div class="form-card mode-panel" data-mode-panel="task-list">
+                                <div class="card-header compact">
+                                    <p class="section-tag">Списки задач</p>
+                                    <h3>Разделение задач по этапам</h3>
+                                </div>
+                                <p class="panel-help">Списки помогают разбить задачи по этапам: например, “План”, “В работе”, “Готово”.</p>
+                                <form id="taskListForm" class="form-grid">
+                                    <input id="taskListId" type="hidden">
+                                    <label>
+                                        <span>Название списка</span>
+                                        <input id="taskListName" type="text" maxlength="150" required>
+                                    </label>
+                                    <label>
+                                        <span>Проект</span>
+                                        <select id="taskListProjectId" required></select>
+                                    </label>
+                                    <div class="button-row">
+                                        <button type="submit" class="secondary-button">Сохранить список</button>
+                                        <button id="resetTaskListButton" type="button" class="ghost-button">Очистить</button>
+                                    </div>
+                                </form>
+                                <div id="taskListItems" class="stack-list nested-stack"></div>
+                            </div>
+
+                            <div class="form-card mode-panel" data-mode-panel="tag">
+                                <div class="card-header compact">
+                                    <p class="section-tag">Теги</p>
+                                    <h3>Маркировка задач</h3>
+                                </div>
+                                <p class="panel-help">Теги позволяют быстро отличать задачи по теме, срочности или типу работы.</p>
+                                <form id="tagForm" class="form-grid">
+                                    <input id="tagId" type="hidden">
+                                    <label>
+                                        <span>Название тега</span>
+                                        <input id="tagName" type="text" maxlength="80" required>
+                                    </label>
+                                    <label>
+                                        <span>Цвет</span>
+                                        <div class="color-row">
+                                            <input id="tagColor" type="color" value="#2DD4BF" required>
+                                            <input id="tagColorText" type="text" value="#2DD4BF" pattern="^#?[A-Fa-f0-9]{6}$" required>
+                                        </div>
+                                    </label>
+                                    <div class="button-row">
+                                        <button type="submit" class="secondary-button">Сохранить тег</button>
+                                        <button id="resetTagButton" type="button" class="ghost-button">Очистить</button>
+                                    </div>
+                                </form>
+                                <div id="tagList" class="tag-cloud"></div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section id="tasksSection" class="surface-card section-card">
+                        <div class="section-head">
+                            <div>
+                                <p class="section-tag">Рабочая область</p>
+                                <h2>Задачи</h2>
+                            </div>
+                        </div>
+
+                        <div class="task-layout">
+                            <form id="taskForm" class="form-card task-editor">
+                                <input id="taskId" type="hidden">
+                                <div class="card-header compact">
+                                    <p class="section-tag">Редактор задачи</p>
+                                    <h3>Создание и обновление</h3>
+                                </div>
+                                <div class="form-grid">
+                                    <label>
+                                        <span>Название задачи</span>
+                                        <input id="taskTitle" type="text" maxlength="160" required>
+                                    </label>
+                                    <label>
+                                        <span>Описание</span>
+                                        <textarea id="taskDescription" rows="4" maxlength="2000"></textarea>
+                                    </label>
+                                    <div class="split-fields triple">
+                                        <label>
+                                            <span>Статус</span>
+                                            <select id="taskStatus" required>
+                                                <option value="TODO">К выполнению</option>
+                                                <option value="IN_PROGRESS">В работе</option>
+                                                <option value="DONE">Завершено</option>
+                                            </select>
+                                        </label>
+                                        <label>
+                                            <span>Приоритет</span>
+                                            <select id="taskPriority" required>
+                                                <option value="LOW">Низкий</option>
+                                                <option value="MEDIUM">Средний</option>
+                                                <option value="HIGH">Высокий</option>
+                                            </select>
+                                        </label>
+                                        <label>
+                                            <span>Срок</span>
+                                            <input id="taskDueDate" type="date">
+                                        </label>
+                                    </div>
+                                    <div class="split-fields">
+                                        <label>
+                                            <span>Список задач</span>
+                                            <select id="taskTaskListId" required></select>
+                                        </label>
+                                        <label>
+                                            <span>Исполнитель</span>
+                                            <select id="taskAssigneeId"></select>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <fieldset class="tag-selector">
+                                    <legend>Теги</legend>
+                                    <div id="taskTagOptions" class="checkbox-grid"></div>
+                                </fieldset>
+
+                                <div class="button-row">
+                                    <button type="submit" class="primary-button">Сохранить задачу</button>
+                                    <button id="resetTaskButton" type="button" class="ghost-button">Новая задача</button>
+                                </div>
+                            </form>
+
+                            <div class="task-board-panel">
+                                <div id="taskMeta" class="meta-strip"></div>
+                                <div id="taskBoard" class="task-board"></div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+                <aside class="workspace-side">
+                    <section class="surface-card section-card side-card">
+                        <div class="card-header">
+                            <p class="section-tag">Детали</p>
+                            <h2 id="detailTitle">Выберите задачу</h2>
+                        </div>
+                        <div id="taskDetail" class="detail-card empty-state">
+                            Выберите задачу слева, чтобы посмотреть её описание, статус, исполнителя и связанные объекты.
+                        </div>
+                    </section>
+
+                    <section class="surface-card section-card side-card">
+                        <div class="card-header">
+                            <p class="section-tag">Комментарии</p>
+                            <h2>Обсуждение задачи</h2>
+                        </div>
+                        <form id="commentForm" class="form-grid">
+                            <input id="commentId" type="hidden">
+                            <label>
+                                <span>Комментарий</span>
+                                <textarea id="commentText" rows="4" maxlength="2000" placeholder="Сначала выберите задачу" required></textarea>
+                            </label>
+                            <div class="button-row">
+                                <button type="submit" class="secondary-button">Сохранить комментарий</button>
+                                <button id="resetCommentButton" type="button" class="ghost-button">Очистить</button>
+                            </div>
+                        </form>
+                        <div id="commentList" class="stack-list"></div>
+                    </section>
+
+                    <section class="surface-card section-card side-card">
+                        <div class="card-header">
+                            <p class="section-tag">Напоминания</p>
+                            <h2>Контроль сроков</h2>
+                        </div>
+                        <form id="reminderForm" class="form-grid">
+                            <input id="reminderId" type="hidden">
+                            <label>
+                                <span>Дата и время</span>
+                                <input id="reminderAt" type="datetime-local" required>
+                            </label>
+                            <label>
+                                <span>Канал</span>
+                                <select id="reminderChannel" required>
+                                    <option value="IN_APP">В приложении</option>
+                                    <option value="EMAIL">Email</option>
+                                </select>
+                            </label>
+                            <div class="button-row">
+                                <button type="submit" class="secondary-button">Сохранить напоминание</button>
+                                <button id="resetReminderButton" type="button" class="ghost-button">Очистить</button>
+                            </div>
+                        </form>
+                        <div id="reminderList" class="stack-list"></div>
+                    </section>
+
+                    <section id="usersSection" class="surface-card section-card side-card">
+                        <article id="adminPanel" class="hidden">
+                            <div class="card-header">
+                                <p class="section-tag">Администрирование</p>
+                                <h2>Пользователи системы</h2>
+                            </div>
+                            <div id="userList" class="stack-list"></div>
+                        </article>
+                    </section>
+                </aside>
+            </div>
+        </div>
+    </section>
+</main>
+
+<script src="/app.js"></script>
+</body>
+</html>

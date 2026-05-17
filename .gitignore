@@ -1,0 +1,47 @@
+target/
+.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+### Файлы IDE: STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### Файлы IDE: IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### Файлы IDE: NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### Файлы IDE: VS Code ###
+.vscode/
+
+### Локальные логи ###
+*.log
+*.err.log
+
+### Локальные сборочные файлы ###
+/TodoLabLauncher.exe
+/launcher-publish/
+/launcher-src/bin/
+/launcher-src/obj/
+
+### Временные архивы и папки ###
+/12/
+*.rar
+*.zip

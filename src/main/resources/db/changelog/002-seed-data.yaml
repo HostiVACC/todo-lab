@@ -1,0 +1,116 @@
+databaseChangeLog:
+  - changeSet:
+      id: 002-seed-data
+      author: codex
+      changes:
+        - insert:
+            tableName: app_role
+            columns:
+              - column: { name: id, valueNumeric: 1 }
+              - column: { name: name, value: ADMIN }
+        - insert:
+            tableName: app_role
+            columns:
+              - column: { name: id, valueNumeric: 2 }
+              - column: { name: name, value: USER }
+        - insert:
+            tableName: app_user
+            columns:
+              - column: { name: id, valueNumeric: 1 }
+              - column: { name: email, value: admin@example.com }
+              - column: { name: password_hash, value: "{noop}admin123" }
+              - column: { name: display_name, value: Administrator }
+              - column: { name: enabled, valueBoolean: true }
+        - insert:
+            tableName: app_user
+            columns:
+              - column: { name: id, valueNumeric: 2 }
+              - column: { name: email, value: demo@example.com }
+              - column: { name: password_hash, value: "{noop}user123" }
+              - column: { name: display_name, value: Demo User }
+              - column: { name: enabled, valueBoolean: true }
+        - insert:
+            tableName: user_role
+            columns:
+              - column: { name: user_id, valueNumeric: 1 }
+              - column: { name: role_id, valueNumeric: 1 }
+        - insert:
+            tableName: user_role
+            columns:
+              - column: { name: user_id, valueNumeric: 1 }
+              - column: { name: role_id, valueNumeric: 2 }
+        - insert:
+            tableName: user_role
+            columns:
+              - column: { name: user_id, valueNumeric: 2 }
+              - column: { name: role_id, valueNumeric: 2 }
+        - insert:
+            tableName: project
+            columns:
+              - column: { name: id, valueNumeric: 1 }
+              - column: { name: name, value: "Demo Personal Project" }
+              - column: { name: description, value: "Initial project for the demo user" }
+              - column: { name: owner_id, valueNumeric: 2 }
+        - insert:
+            tableName: task_list
+            columns:
+              - column: { name: id, valueNumeric: 1 }
+              - column: { name: name, value: Inbox }
+              - column: { name: project_id, valueNumeric: 1 }
+        - insert:
+            tableName: task_list
+            columns:
+              - column: { name: id, valueNumeric: 2 }
+              - column: { name: name, value: Done }
+              - column: { name: project_id, valueNumeric: 1 }
+        - insert:
+            tableName: tag
+            columns:
+              - column: { name: id, valueNumeric: 1 }
+              - column: { name: name, value: Study }
+              - column: { name: color, value: "#4A90E2" }
+              - column: { name: owner_id, valueNumeric: 2 }
+        - insert:
+            tableName: tag
+            columns:
+              - column: { name: id, valueNumeric: 2 }
+              - column: { name: name, value: Urgent }
+              - column: { name: color, value: "#E94E77" }
+              - column: { name: owner_id, valueNumeric: 2 }
+        - insert:
+            tableName: task
+            columns:
+              - column: { name: id, valueNumeric: 1 }
+              - column: { name: title, value: "Finish Java lab" }
+              - column: { name: description, value: "Complete CRUD, migrations and security" }
+              - column: { name: status, value: IN_PROGRESS }
+              - column: { name: priority, value: HIGH }
+              - column: { name: due_date, value: "2026-05-10" }
+              - column: { name: assignee_id, valueNumeric: 2 }
+              - column: { name: task_list_id, valueNumeric: 1 }
+        - insert:
+            tableName: task_tag
+            columns:
+              - column: { name: task_id, valueNumeric: 1 }
+              - column: { name: tag_id, valueNumeric: 1 }
+        - insert:
+            tableName: task_tag
+            columns:
+              - column: { name: task_id, valueNumeric: 1 }
+              - column: { name: tag_id, valueNumeric: 2 }
+        - insert:
+            tableName: comment
+            columns:
+              - column: { name: id, valueNumeric: 1 }
+              - column: { name: text, value: "Start with entities and migration" }
+              - column: { name: author_id, valueNumeric: 2 }
+              - column: { name: task_id, valueNumeric: 1 }
+              - column: { name: created_at, valueDate: 2026-04-25T00:00:00 }
+        - insert:
+            tableName: reminder
+            columns:
+              - column: { name: id, valueNumeric: 1 }
+              - column: { name: remind_at, valueDate: 2026-05-05T09:00:00 }
+              - column: { name: channel, value: IN_APP }
+              - column: { name: task_id, valueNumeric: 1 }
+              - column: { name: created_by, valueNumeric: 2 }
